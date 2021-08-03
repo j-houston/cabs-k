@@ -8,7 +8,7 @@ interface ICabHandler {
 
     fun createNewCab(initialLocation: LatLongRep) : CabRep
 
-    fun destroyAllCabs()
+    fun destroyAllCabs() : Int
 
     fun destroyCab(id: String)
 

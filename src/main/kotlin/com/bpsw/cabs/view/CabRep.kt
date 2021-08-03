@@ -4,8 +4,8 @@ import java.util.UUID
 
 class CabRep(
     val id: String?,
-    latitude: Double,
-    longitude: Double
+    latitude: Float,
+    longitude: Float
 ): LatLongRep(latitude, longitude) {
 
     fun getOrCreateId() : String {
