@@ -11,7 +11,15 @@ plugins {
 version = "0.1"
 group = "com.bpsw.cabs"
 
+val exposedVersion=project.properties.get("exposedVersion")
+val grpcKotlinVersion=project.properties.get("grpcKotlinVersion")
+val grpcVersion=project.properties.get("grpcVersion")
 val kotlinVersion=project.properties.get("kotlinVersion")
+val micronautGrpcVersion=project.properties.get("micronautGrpcVersion")
+val micronautKotlinVersion=project.properties.get("micronautKotlinVersion")
+val micronautVersion=project.properties.get("micronautVersion")
+val protocVersion=project.properties.get("protocVersion")
+
 repositories {
     mavenCentral()
 }
@@ -25,26 +33,27 @@ micronaut {
 }
 
 dependencies {
-    implementation("io.micronaut:micronaut-runtime")
-    implementation("io.micronaut.grpc:micronaut-grpc-runtime")
-    implementation("io.micronaut:micronaut-http")
-    implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
+    implementation("io.micronaut:micronaut-runtime:${micronautVersion}")
+    implementation("io.micronaut.grpc:micronaut-grpc-server-runtime:${micronautGrpcVersion}")
+    implementation("io.micronaut.kotlin:micronaut-kotlin-runtime:${micronautKotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
-    implementation("ch.qos.logback:logback-classic")
-    implementation("io.micronaut:micronaut-validation")
+    implementation("ch.qos.logback:logback-classic:1.2.5")
+    implementation("io.micronaut:micronaut-validation:${micronautVersion}")
 
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("io.grpc:grpc-services:${grpcKotlinVersion}")
 
-    implementation("org.jetbrains.exposed", "exposed-core", "0.31.1")
-    implementation("org.jetbrains.exposed", "exposed-dao", "0.31.1")
-    implementation("org.jetbrains.exposed", "exposed-jdbc", "0.31.1")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.4")
+
+    implementation("org.jetbrains.exposed:exposed-core:${exposedVersion}")
+    implementation("org.jetbrains.exposed:exposed-dao:${exposedVersion}")
+    implementation("org.jetbrains.exposed:exposed-jdbc:${exposedVersion}")
 
     implementation("com.h2database:h2")
     implementation("com.zaxxer:HikariCP")
     // ?? implementation("org.slf4j:slf4j-nop")
 
-    testImplementation("io.micronaut:micronaut-http-client")
+    testImplementation("io.micronaut:micronaut-http-client:${micronautVersion}")
 
 }
 
@@ -81,11 +90,11 @@ sourceSets {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.17.2"
+        artifact = "com.google.protobuf:protoc:${protocVersion}"
     }
     plugins {
         id("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.38.0"
+            artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
         }
     }
     generateProtoTasks {
