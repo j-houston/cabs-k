@@ -1,20 +1,20 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "com.bpsw.cabs";
-option java_outer_classname = "Cabs";
-option objc_class_prefix = "HLW";
+option java_package = "com.bpsw.cabs.grpc";
+option java_outer_classname = "CabsProto";
+option objc_class_prefix = "CP";
 
-package com.bpsw.cabs.handlers;
+package com.bpsw.cabs.grpc;
 
-service CabsHWService {
-  rpc send (CabsHWRequest) returns (CabsHWReply) {}
+service HealthcheckService {
+  rpc Healthcheck (HealthcheckRequest) returns (HealthcheckReply) {}
 }
 
-message CabsHWRequest {
+message HealthcheckRequest {
   string name = 1;
 }
 
-message CabsHWReply {
+message HealthcheckReply {
   string message = 1;
 }
