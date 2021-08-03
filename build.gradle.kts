@@ -27,13 +27,22 @@ micronaut {
 dependencies {
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut.grpc:micronaut-grpc-runtime")
+    implementation("io.micronaut:micronaut-http")
     implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
-    runtimeOnly("ch.qos.logback:logback-classic")
+    implementation("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-validation")
 
-    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    implementation("org.jetbrains.exposed", "exposed-core", "0.31.1")
+    implementation("org.jetbrains.exposed", "exposed-dao", "0.31.1")
+    implementation("org.jetbrains.exposed", "exposed-jdbc", "0.31.1")
+
+    implementation("com.h2database:h2")
+    implementation("com.zaxxer:HikariCP")
+    // ?? implementation("org.slf4j:slf4j-nop")
 
     testImplementation("io.micronaut:micronaut-http-client")
 
