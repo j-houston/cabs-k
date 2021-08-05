@@ -7,6 +7,9 @@ option objc_class_prefix = "CP";
 
 package com.bpsw.cabs.grpc;
 
+message Empty {
+}
+
 service HealthcheckService {
   rpc Healthcheck (HealthcheckRequest) returns (HealthcheckReply) {}
 }
@@ -17,4 +20,30 @@ message HealthcheckRequest {
 
 message HealthcheckReply {
   string message = 1;
+}
+
+service CabsService {
+  rpc CreateNewCab (CreateNewCabRequest) returns (GetCabReply) {}
+  rpc DestroyAllCabs (Empty) returns (DestroyAllCabsReply) {}
+  rpc DestroyCab(GetCabRequest) returns (Empty) {}
+  rpc GetCab (GetCabRequest) returns (GetCabReply) {}
+}
+
+message CreateNewCabRequest {
+  float latitude = 1;
+  float longitude = 2;
+}
+
+message DestroyAllCabsReply {
+  int32 count = 1;
+}
+
+message GetCabRequest {
+  string id = 1;
+}
+
+message GetCabReply {
+  string id = 1;
+  float latitude = 2;
+  float longitude = 3;
 }
