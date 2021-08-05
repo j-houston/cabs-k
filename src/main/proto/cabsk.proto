@@ -27,6 +27,7 @@ service CabsService {
   rpc DestroyAllCabs (Empty) returns (DestroyAllCabsReply) {}
   rpc DestroyCab(GetCabRequest) returns (Empty) {}
   rpc GetCab (GetCabRequest) returns (GetCabReply) {}
+  rpc SearchCabs (SearchCabsRequest) returns (SearchCabsResponse) {}
 }
 
 message CreateNewCabRequest {
@@ -46,4 +47,14 @@ message GetCabReply {
   string id = 1;
   float latitude = 2;
   float longitude = 3;
+}
+
+message SearchCabsRequest {
+  int32 page = 1;
+}
+
+message SearchCabsResponse {
+  repeated GetCabReply cabs = 1;
+  int32 page = 2;
+  int32 totalCount = 3;
 }

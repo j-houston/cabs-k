@@ -5,7 +5,10 @@ import com.bpsw.cabs.handlers.ICabHandler
 import com.bpsw.cabs.model.CabModel
 import com.bpsw.cabs.model.CabTable
 import com.bpsw.cabs.view.CabRep
+import com.bpsw.cabs.view.CabsPageRep
+import com.bpsw.cabs.view.CabsSearchCriteriaRep
 import com.bpsw.cabs.view.LatLongRep
+import org.jetbrains.exposed.sql.SizedIterable
 import org.jetbrains.exposed.sql.StdOutSqlLogger
 import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.deleteAll
@@ -15,6 +18,10 @@ import javax.inject.Singleton
 
 @Singleton
 class CabHandlerImpl : ICabHandler {
+
+    companion object {
+        const val PAGE_SIZE : Int = 5
+    }
 
     override fun createNewCab(initialLocation: LatLongRep): CabRep {
         val newCabModel: CabModel = transaction {
@@ -63,5 +70,23 @@ class CabHandlerImpl : ICabHandler {
         )
     }
 
+    override fun searchCabs(searchCriteria: CabsSearchCriteriaRep): CabsPageRep {
+        val cabsPage: CabsPageRep = transaction {
+            addLogger(StdOutSqlLogger)
 
+            val offset: Long = (PAGE_SIZE * searchCriteria.page).toLong()
+            val foundIter: SizedIterable<CabModel> = CabModel.all().limit(n = PAGE_SIZE, offset = offset)
+            val foundList: List<CabRep> = foundIter.map { modelToRep(cabModel = it) }
+
+            val totalCount: Int = CabModel.count().toInt()
+
+            CabsPageRep(
+                cabs = foundList,
+                page = searchCriteria.page,
+                totalCount = totalCount
+            )
+        }
+
+        return cabsPage
+    }
 }
