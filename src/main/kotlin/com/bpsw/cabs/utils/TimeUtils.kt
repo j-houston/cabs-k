@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter
 
 class TimeUtils {
     companion object {
-        val MINUTES_PER_DAY: Int = 24 * 60
+        const val MINUTES_PER_DAY: Int = 24 * 60
 
         fun getCurrentDatetimeFormatted(): String {
             val current = LocalDateTime.now()

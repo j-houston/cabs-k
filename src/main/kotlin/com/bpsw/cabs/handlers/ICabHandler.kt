@@ -2,6 +2,8 @@ package com.bpsw.cabs.handlers
 
 import com.bpsw.cabs.model.CabModel
 import com.bpsw.cabs.view.CabRep
+import com.bpsw.cabs.view.CabsPageRep
+import com.bpsw.cabs.view.CabsSearchCriteriaRep
 import com.bpsw.cabs.view.LatLongRep
 
 interface ICabHandler {
@@ -16,5 +18,5 @@ interface ICabHandler {
 
     fun modelToRep(cabModel: CabModel) : CabRep
 
-
+    fun searchCabs(searchCriteria : CabsSearchCriteriaRep) : CabsPageRep
 }

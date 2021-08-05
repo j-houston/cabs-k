@@ -2,8 +2,10 @@ package com.bpsw.cabs.utils
 
 class SpatialUtils {
 
-    val EARTH_RADIUS_M : Double = 6378137.0
-    val SRID : Int = 4326
+    companion object {
+        const val EARTH_RADIUS_M: Double = 6378137.0
+        const val SRID: Int = 4326
+    }
 
     fun getLocationFromSourceAndDistance(
         sourceLatitude: Double,

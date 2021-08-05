@@ -3,6 +3,8 @@ package com.bpsw.cabs.grpc
 import com.bpsw.cabs.exceptions.BaseCabsException
 import com.bpsw.cabs.handlers.ICabHandler
 import com.bpsw.cabs.view.CabRep
+import com.bpsw.cabs.view.CabsPageRep
+import com.bpsw.cabs.view.CabsSearchCriteriaRep
 import com.bpsw.cabs.view.LatLongRep
 import io.grpc.StatusException
 import io.grpc.stub.StreamObserver
@@ -60,12 +62,32 @@ class CabServiceEndpoint : CabsServiceGrpc.CabsServiceImplBase() {
         }
     }
 
+    override fun searchCabs(request: SearchCabsRequest?, responseObserver: StreamObserver<SearchCabsResponse>?) {
+        val searchCriteria : CabsSearchCriteriaRep = CabsSearchCriteriaRep(
+            request!!.page
+        )
+
+        val foundCabs : CabsPageRep = cabsHandler.searchCabs(searchCriteria = searchCriteria)
+        val reply : SearchCabsResponse = cabsPageRepToCabsPageReply(foundCabs)
+        responseObserver!!.onNext(reply)
+        responseObserver.onCompleted()
+    }
+
     fun cabRepToCabReply(cabRep : CabRep) : GetCabReply {
         return GetCabReply
             .newBuilder()
             .setId(cabRep.id)
             .setLatitude(cabRep.latitude)
             .setLongitude(cabRep.longitude)
+            .build()
+    }
+
+    fun cabsPageRepToCabsPageReply(cabsPageRep: CabsPageRep) : SearchCabsResponse {
+        return SearchCabsResponse
+            .newBuilder()
+            .setPage(cabsPageRep.page)
+            .setTotalCount(cabsPageRep.totalCount)
+            .addAllCabs(cabsPageRep.cabs.map { cabRepToCabReply(it) })
             .build()
     }
 }
