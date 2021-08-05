@@ -11,8 +11,9 @@ import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.util.*
+import javax.inject.Singleton
 
-
+@Singleton
 class CabHandlerImpl : ICabHandler {
 
     override fun createNewCab(initialLocation: LatLongRep): CabRep {
