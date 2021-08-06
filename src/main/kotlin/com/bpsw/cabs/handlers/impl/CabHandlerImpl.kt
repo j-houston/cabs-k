@@ -62,13 +62,11 @@ class CabHandlerImpl : ICabHandler {
         return modelToRep(cabModel = foundCab)
     }
 
-    override fun modelToRep(cabModel: CabModel): CabRep {
-        return CabRep(
-            id = cabModel.id.toString(),
-            latitude = cabModel.latitude,
-            longitude = cabModel.longitude
-        )
-    }
+    override fun modelToRep(cabModel: CabModel) = CabRep(
+        id = cabModel.id.toString(),
+        latitude = cabModel.latitude,
+        longitude = cabModel.longitude
+    )
 
     override fun searchCabs(searchCriteria: CabsSearchCriteriaRep): CabsPageRep {
         val cabsPage: CabsPageRep = transaction {

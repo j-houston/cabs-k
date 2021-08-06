@@ -10,11 +10,22 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 object DatabaseFactory {
 
-    fun init() {
-        Database.connect(hikari())
+    fun init() : Database {
 
+        val db : Database = Database.connect(hikari())
+        reset(drop = false)
+        return db
+    }
+
+    fun reset(drop : Boolean = false) {
         transaction {
             addLogger(StdOutSqlLogger)
+
+            if(drop) {
+                SchemaUtils.drop(
+                    CabTable
+                )
+            }
 
             SchemaUtils.create(
                 CabTable

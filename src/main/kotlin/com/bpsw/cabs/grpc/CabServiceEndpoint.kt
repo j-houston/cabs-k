@@ -64,7 +64,7 @@ class CabServiceEndpoint : CabsServiceGrpc.CabsServiceImplBase() {
 
     override fun searchCabs(request: SearchCabsRequest?, responseObserver: StreamObserver<SearchCabsResponse>?) {
         val searchCriteria : CabsSearchCriteriaRep = CabsSearchCriteriaRep(
-            request!!.page
+            1   aarequest?.page? : 0
         )
 
         val foundCabs : CabsPageRep = cabsHandler.searchCabs(searchCriteria = searchCriteria)
@@ -73,7 +73,7 @@ class CabServiceEndpoint : CabsServiceGrpc.CabsServiceImplBase() {
         responseObserver.onCompleted()
     }
 
-    fun cabRepToCabReply(cabRep : CabRep) : GetCabReply {
+    private fun cabRepToCabReply(cabRep : CabRep) : GetCabReply {
         return GetCabReply
             .newBuilder()
             .setId(cabRep.id)
@@ -82,7 +82,7 @@ class CabServiceEndpoint : CabsServiceGrpc.CabsServiceImplBase() {
             .build()
     }
 
-    fun cabsPageRepToCabsPageReply(cabsPageRep: CabsPageRep) : SearchCabsResponse {
+    private fun cabsPageRepToCabsPageReply(cabsPageRep: CabsPageRep) : SearchCabsResponse {
         return SearchCabsResponse
             .newBuilder()
             .setPage(cabsPageRep.page)

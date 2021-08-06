@@ -14,6 +14,7 @@ group = "com.bpsw.cabs"
 val exposedVersion=project.properties.get("exposedVersion")
 val grpcKotlinVersion=project.properties.get("grpcKotlinVersion")
 val grpcVersion=project.properties.get("grpcVersion")
+val junitVersion=project.properties.get("junitVersion")
 val kotlinVersion=project.properties.get("kotlinVersion")
 val micronautGrpcVersion=project.properties.get("micronautGrpcVersion")
 val micronautKotlinVersion=project.properties.get("micronautKotlinVersion")
@@ -54,6 +55,10 @@ dependencies {
     // ?? implementation("org.slf4j:slf4j-nop")
 
     testImplementation("io.micronaut:micronaut-http-client:${micronautVersion}")
+    testAnnotationProcessor("io.micronaut:micronaut-inject-java")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testImplementation("io.micronaut.test:micronaut-test-junit5:2.3.7")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 
 }
 
@@ -106,3 +111,4 @@ protobuf {
         }
     }
 }
+
