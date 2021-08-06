@@ -64,7 +64,7 @@ class CabServiceEndpoint : CabsServiceGrpc.CabsServiceImplBase() {
 
     override fun searchCabs(request: SearchCabsRequest?, responseObserver: StreamObserver<SearchCabsResponse>?) {
         val searchCriteria : CabsSearchCriteriaRep = CabsSearchCriteriaRep(
-            1   aarequest?.page? : 0
+            request?.page ?: 0
         )
 
         val foundCabs : CabsPageRep = cabsHandler.searchCabs(searchCriteria = searchCriteria)
